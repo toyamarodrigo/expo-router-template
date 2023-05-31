@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "jsx": "react-native",
+    "lib": ["DOM", "ESNext"],
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@stores/*": ["src/stores/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["assets/*"],
+      "@api/*": ["src/api/*"],
+      "@models/*": ["src/models/*"],
+    }
+  },
+  "extends": "expo/tsconfig.base",
+  "exclude": ["node_modules", "babel.config.js"],
+}
