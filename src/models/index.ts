@@ -1,2 +1,1 @@
-// TODO: Add Models
-export {};
+export * from "./pokemon.type"

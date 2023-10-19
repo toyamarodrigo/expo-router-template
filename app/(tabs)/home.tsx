@@ -1,11 +1,19 @@
 import { Text, View, StyleSheet } from "react-native";
+import { usePokemonList } from "@hooks/usePokemon";
 
 const Home = () => {
+  const { data } = usePokemonList();
+
   return (
     <View style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.title}>Home</Text>
         <Text style={styles.subtitle}>This is the Details page of your app.</Text>
+        <View>
+          {data?.results ? data.results.map((item) => (
+            <Text key={item.name}>{item.name}</Text>
+          )) : <Text>No data</Text>}
+        </View>
       </View>
     </View>
   );

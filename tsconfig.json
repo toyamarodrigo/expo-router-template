@@ -1,21 +1,8 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "jsx": "react-native",
-    "lib": ["DOM", "ESNext"],
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "target": "ESNext",
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strict": true,
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
@@ -25,8 +12,8 @@
       "@assets/*": ["assets/*"],
       "@api/*": ["src/api/*"],
       "@models/*": ["src/models/*"],
+      "@hooks/*": ["src/hooks/*"],
     }
   },
   "extends": "expo/tsconfig.base",
-  "exclude": ["node_modules", "babel.config.js"],
 }

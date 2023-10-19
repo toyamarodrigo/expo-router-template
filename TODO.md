@@ -9,5 +9,11 @@
 - [ ] Bottom sheet example
 - [ ] Dialog example
 - [ ] React Query example
+  - [x] List
+  - [ ] Detail
 - [ ] Eslint
 - [ ] Tsconfig
+
+## Fix
+
+- [ ] Drawer menu types
