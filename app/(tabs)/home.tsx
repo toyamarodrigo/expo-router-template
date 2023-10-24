@@ -8,6 +8,9 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.title}>Home</Text>
+        <View className="flex-1 items-center justify-center bg-red-500">
+          <Text className="text-md font-bold">Hello World</Text>
+        </View>
         <Text style={styles.subtitle}>This is the Details page of your app.</Text>
         <View>
           {data?.results ? data.results.map((item) => (
