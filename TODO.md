@@ -13,7 +13,3 @@
   - [ ] Detail
 - [ ] Eslint
 - [ ] Tsconfig
-
-## Fix
-
-- [ ] Drawer menu types

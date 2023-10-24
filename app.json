@@ -5,6 +5,17 @@
       "bundler": "metro"
     },
     "name": "expo-router-template",
-    "slug": "expo-router-template"
+    "slug": "expo-router-template",
+    "extra": {
+      "eas": {
+        "projectId": "67c2667d-6254-41da-a5a7-ac8aec93cfd4"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.toyama.rodrigo.exporoutertemplate"
+    },
+    "android": {
+      "package": "com.toyama.rodrigo.exporoutertemplate"
+    }
   }
 }
