@@ -2,8 +2,9 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Linking } from "react-native";
 import { Link } from "expo-router";
 import { useSegments } from "expo-router";
-import { Drawer } from "@layouts/Drawer";
+import { Drawer } from "expo-router/drawer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ROUTES } from "@utils/constants";
 
 const RootLayout = () => {
   const segments = useSegments();
@@ -34,19 +35,19 @@ const RootLayout = () => {
           return (
             <DrawerContentScrollView {...props}>
               <DrawerItem label="Website" onPress={() => Linking.openURL("https://www.expo.dev/")} />
-              <Link href={"/"} onPress={() => props.navigation.closeDrawer()}>
+              <Link href={ROUTES.LOGIN} onPress={() => props.navigation.closeDrawer()}>
                 Login
               </Link>
-              <Link href={"/home"} onPress={() => props.navigation.closeDrawer()}>
+              <Link href={ROUTES.HOME} onPress={() => props.navigation.closeDrawer()}>
                 Home
               </Link>
               <Link
-                href={{ pathname: "/details", params: { user: "evanbacon" } }}
+                href={{ pathname: ROUTES.DETAILS, params: { user: "evanbacon" } }}
                 onPress={() => props.navigation.closeDrawer()}
               >
                 Details
               </Link>
-              <Link href={"/counter"} onPress={() => props.navigation.closeDrawer()}>
+              <Link href={ROUTES.COUNTER} onPress={() => props.navigation.closeDrawer()}>
                 Counter
               </Link>
             </DrawerContentScrollView>
