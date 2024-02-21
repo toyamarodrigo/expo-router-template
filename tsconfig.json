@@ -26,7 +26,8 @@
       "@assets/*": ["assets/*"],
       "@api/*": ["src/api/*"],
       "@models/*": ["src/models/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@adapters/*": ["src/adapters/*"]
     }
   },
   "exclude": ["node_modules"],
