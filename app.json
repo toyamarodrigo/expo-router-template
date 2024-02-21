@@ -16,6 +16,14 @@
     },
     "android": {
       "package": "com.toyama.rodrigo.exporoutertemplate"
+    },
+    "owner": "toyama.rodrigo",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/67c2667d-6254-41da-a5a7-ac8aec93cfd4",
+      "requestHeaders": {
+        "expo-channel-name": "main"
+      }
     }
   }
 }
