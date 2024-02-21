@@ -13,9 +13,9 @@ const Counter = () => {
         <Text style={styles.title}>Counter</Text>
         <Text style={styles.subtitle}>This is the Counter page of your app.</Text>
         <View style={styles.countContainer}>
-          <Button title="+" onPress={increment} />
-          <Text style={styles.subtitle}>{count}</Text>
           <Button title="-" onPress={decrement} />
+          <Text style={styles.subtitle}>{count}</Text>
+          <Button title="+" onPress={increment} />
         </View>
       </View>
     </View>
