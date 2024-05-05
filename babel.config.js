@@ -3,12 +3,6 @@ module.exports = function (api) {
   return {
     presets: ["babel-preset-expo"],
     plugins: [
-      ["@babel/plugin-transform-flow-strip-types"],
-      ["@babel/plugin-proposal-decorators", { legacy: true }],
-      ["@babel/plugin-proposal-class-properties", { loose: true }],
-      ["@babel/plugin-proposal-export-namespace-from"],
-      ["react-native-reanimated/plugin"],
-      ["nativewind/babel"],
       [
         "module-resolver",
         {
@@ -36,6 +30,8 @@ module.exports = function (api) {
           ],
         },
       ],
+      ["nativewind/babel"],
+      ["react-native-reanimated/plugin"],
     ],
   };
 };

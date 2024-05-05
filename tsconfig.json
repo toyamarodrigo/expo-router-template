@@ -36,10 +36,12 @@
     "App.js",
     "app",
     "test",
-    "*.js",
-    "*.jsx",
-    "*.ts",
-    "*.tsx"
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ],
   "extends": "expo/tsconfig.base"
 }

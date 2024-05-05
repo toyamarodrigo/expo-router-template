@@ -4,4 +4,4 @@ export const ROUTES = {
   HOME: "/home",
   DETAILS: "/details",
   COUNTER: "/counter",
-};
+} as const;

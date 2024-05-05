@@ -1,29 +1,45 @@
 {
   "expo": {
-    "scheme": "acme",
-    "web": {
-      "bundler": "metro"
-    },
     "name": "expo-router-template",
     "slug": "expo-router-template",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "acme",
+    "userInterfaceStyle": "automatic",
+    "runtimeVersion": "1.0.0",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
     "extra": {
       "eas": {
         "projectId": "67c2667d-6254-41da-a5a7-ac8aec93cfd4"
       }
     },
-    "ios": {
-      "bundleIdentifier": "com.toyama.rodrigo.exporoutertemplate"
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
     },
-    "android": {
-      "package": "com.toyama.rodrigo.exporoutertemplate"
-    },
-    "owner": "toyama.rodrigo",
-    "runtimeVersion": "1.0.0",
-    "updates": {
-      "url": "https://u.expo.dev/67c2667d-6254-41da-a5a7-ac8aec93cfd4",
-      "requestHeaders": {
-        "expo-channel-name": "main"
-      }
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
     }
   }
 }
