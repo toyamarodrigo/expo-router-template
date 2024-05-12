@@ -39,14 +39,14 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Usuario</Text>
+      <Text style={styles.label}>User</Text>
       <TextInput
         {...register("user")}
         style={styles.input}
         onChangeText={(text) => setValue("user", text)}
       />
       {errors.user && <Text style={{ color: "red" }}>{errors.user.message}</Text>}
-      <Text style={styles.label}>Contraseña</Text>
+      <Text style={styles.label}>Password</Text>
       <TextInput
         {...register("password")}
         secureTextEntry
