@@ -13,17 +13,19 @@ Feel free to use this template as a starting point for your next project and cus
 
 All feedback and contributions are welcome!
 
+https://github.com/user-attachments/assets/6aad9f74-8404-4fd3-8dc3-59e2f3b6241c
+
 ## Key Features
 
-- Expo (v50): Build cross-platform mobile apps for iOS and Android using a single codebase.
-- Expo Router (v3): Define your application's navigation structure with a flexible and declarative approach.
-- TypeScript: Ensure type safety and improve code maintainability.
-- Zustand: Manage application state in a centralized and reactive way.
-- TanStack Query: Simplify data fetching and caching with robust functionalities.
-- React Hook Forms: Handle form validation and user input seamlessly.
-- React reanimated: Create smooth animations and interactive UI elements.
-- Alias Path: Configure dynamic and user-friendly route paths.
-- NativeWind (v2): Apply utility-first styling for efficient UI development.
+- **[Expo (v51)](https://docs.expo.dev/):** Build cross-platform mobile apps for iOS and Android using a single codebase.
+- **[Expo Router (v3)](https://docs.expo.dev/router/introduction/):** Define your application's navigation structure with a flexible and declarative approach.
+- **[TypeScript](https://www.typescriptlang.org/):** Ensure type safety and improve code maintainability.
+- **[Zustand](https://zustand-demo.pmnd.rs/):** Manage application state in a centralized and reactive way.
+- **[TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview):** Simplify data fetching and caching with robust functionalities.
+- **[React Hook Forms](https://www.react-hook-form.com/):** Handle form validation and user input seamlessly.
+- **[React Reanimated](https://docs.swmansion.com/react-native-reanimated/):** Create smooth animations and interactive UI elements.
+- **Alias Path:** Configure dynamic and user-friendly route paths.
+- **[NativeWind (v2)](https://www.nativewind.dev/):** Apply utility-first styling for efficient UI development.
 
 ## Getting Started
 
