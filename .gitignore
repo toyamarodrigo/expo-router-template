@@ -14,6 +14,9 @@ web-build/
 .DS_Store
 
 yarn-error.log
+.yarn/
+ios/
+android/
 
 # OSX
 .DS_Store

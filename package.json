@@ -70,6 +70,5 @@
   "resolutions": {
     "metro": "~0.80.4",
     "metro-resolver": "~0.80.4"
-  },
-  "packageManager": "yarn@4.4.0"
+  }
 }

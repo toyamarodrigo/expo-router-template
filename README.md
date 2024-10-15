@@ -44,6 +44,10 @@ Run the application:
 
 ```bash
 yarn start
+
+# or 
+
+npx expo start --clear
 ```
 
 This will start the Expo development server and allow you to preview your app on a connected device or emulator.
