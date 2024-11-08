@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 
-import Button from "@components/Button";
+import { Button } from "@components/Button";
 import { useAppStore } from "@stores/useAppStore";
 
 const Counter = () => {
