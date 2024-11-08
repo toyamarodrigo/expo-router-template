@@ -14,16 +14,16 @@ export type Pokemon = {
     specialDefense: number;
     speed: number;
   };
-}
+};
 
 export type PokemonList = {
   count: number;
   next: string;
   previous: string;
   results: PokemonListItem[];
-}
+};
 
 type PokemonListItem = {
   name: string;
   url: string;
-}
+};

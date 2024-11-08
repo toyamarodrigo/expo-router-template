@@ -1,6 +1,8 @@
-import { createQueryKeyStore } from '@lukemorales/query-key-factory'
-import { Pokemon } from '@models/pokemon.type'
-import { pokemonApi } from './api.pokemon'
+import { createQueryKeyStore } from "@lukemorales/query-key-factory";
+
+import { pokemonApi } from "./api.pokemon";
+
+import { Pokemon } from "@models/pokemon.type";
 
 export const pokemonKeys = createQueryKeyStore({
   pokemon: {
@@ -13,4 +15,4 @@ export const pokemonKeys = createQueryKeyStore({
       queryFn: () => pokemonApi.getPokemonList({ limit, offset }),
     }),
   },
-})
+});

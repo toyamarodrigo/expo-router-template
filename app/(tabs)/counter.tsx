@@ -1,6 +1,7 @@
+import { View, Text, StyleSheet } from "react-native";
+
 import Button from "@components/Button";
 import { useAppStore } from "@stores/useAppStore";
-import { View, Text, StyleSheet } from "react-native";
 
 const Counter = () => {
   const increment = useAppStore((state) => state.increment);

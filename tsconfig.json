@@ -1,4 +1,5 @@
 {
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
     "noUnusedParameters": true,
@@ -19,6 +20,7 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
+      "@/*": ["./*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@stores/*": ["src/stores/*"],
@@ -32,16 +34,12 @@
   },
   "exclude": ["node_modules"],
   "include": [
-    "index.js",
-    "App.js",
-    "app",
-    "test",
     "**/*.js",
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ],
-  "extends": "expo/tsconfig.base"
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ]
 }

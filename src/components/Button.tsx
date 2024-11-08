@@ -5,7 +5,7 @@ interface ButtonProps extends PressableProps {
   title?: string;
 }
 
-const Button = ({ onPress, title = "Button", ...rest }: ButtonProps) => {
+export const Button = ({ onPress, title = "Button", ...rest }: ButtonProps) => {
   return (
     <Pressable style={styles.button} onPress={onPress} {...rest}>
       <Text style={styles.text}>{title}</Text>
@@ -31,5 +31,3 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
-export default Button;

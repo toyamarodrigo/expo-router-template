@@ -4,9 +4,12 @@ import { Link } from "expo-router";
 import { useSegments } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useReactQueryDevTools } from '@dev-plugins/react-query';
+import { useReactQueryDevTools } from "@dev-plugins/react-query";
+import * as Updates from "expo-updates";
+
 import { ROUTES } from "@utils/constants";
-import * as Updates from 'expo-updates';
+
+import "../global.css";
 
 const client = new QueryClient({
   defaultOptions: {
@@ -18,8 +21,8 @@ const client = new QueryClient({
         if ("message" in error) {
           console.error(error.message);
         }
-      }
-    }
+      },
+    },
   },
 });
 
@@ -30,15 +33,13 @@ const RootLayout = () => {
   const drawerTitle = isLogin ? "LOGIN" : segments.length > 0 ? segments[segments.length - 1].toLowerCase() : "";
 
   const runTypeMessage = Updates.isEmbeddedLaunch
-  ? 'This app is running from built-in code'
-  : 'This app is running an update';
+    ? "This app is running from built-in code"
+    : "This app is running an update";
 
-  console.log('runTypeMessage', runTypeMessage)
+  console.log("runTypeMessage", runTypeMessage);
 
   return (
-    <QueryClientProvider
-      client={client}
-    >
+    <QueryClientProvider client={client}>
       <Drawer
         drawerContent={(props) => {
           return (

@@ -1,4 +1,5 @@
 import { Text, View, StyleSheet } from "react-native";
+
 import { usePokemonList } from "@hooks/usePokemon";
 
 const Home = () => {
@@ -13,9 +14,7 @@ const Home = () => {
         </View>
         <Text style={styles.subtitle}>This is the Details page of your app.</Text>
         <View>
-          {data?.results ? data.results.map((item) => (
-            <Text key={item.name}>{item.name}</Text>
-          )) : <Text>No data</Text>}
+          {data?.results ? data.results.map((item) => <Text key={item.name}>{item.name}</Text>) : <Text>No data</Text>}
         </View>
       </View>
     </View>
