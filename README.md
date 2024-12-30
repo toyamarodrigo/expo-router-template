@@ -25,7 +25,7 @@ https://github.com/user-attachments/assets/6aad9f74-8404-4fd3-8dc3-59e2f3b6241c
 - **[React Hook Forms](https://www.react-hook-form.com/):** Handle form validation and user input seamlessly.
 - **[React Reanimated](https://docs.swmansion.com/react-native-reanimated/):** Create smooth animations and interactive UI elements.
 - **Alias Path:** Configure dynamic and user-friendly route paths.
-- **[NativeWind (v2)](https://www.nativewind.dev/):** Apply utility-first styling for efficient UI development.
+- **[NativeWind (v4)](https://www.nativewind.dev/):** Apply utility-first styling for efficient UI development.
 
 ## Getting Started
 
