@@ -19,6 +19,7 @@ const client = new QueryClient({
     mutations: {
       onError: (error) => {
         if ("message" in error) {
+          // eslint-disable-next-line no-console
           console.error(error.message);
         }
       },
@@ -36,6 +37,7 @@ const RootLayout = () => {
     ? "This app is running from built-in code"
     : "This app is running an update";
 
+  // eslint-disable-next-line no-console
   console.log("runTypeMessage", runTypeMessage);
 
   return (
@@ -63,7 +65,6 @@ const RootLayout = () => {
             </DrawerContentScrollView>
           );
         }}
-        initialRouteName="/"
         screenOptions={{
           title: drawerTitle,
         }}

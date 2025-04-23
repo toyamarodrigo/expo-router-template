@@ -1,0 +1,17 @@
+{
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports.eslint": "explicit"
+  },
+  "search.exclude": {
+    "node_modules": true,
+    "dist": true,
+    "build": true,
+    "public": true,
+    "ios": true,
+    "android": true,
+    "web": true,
+    "coverage": true,
+  }
+}

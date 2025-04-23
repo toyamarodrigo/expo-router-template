@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { AppState, AppStateStatus } from "react-native";
 
-export function useAppState(onChange: (status: AppStateStatus) => void) {
+export function useAppState(onChange: (_: AppStateStatus) => void) {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", onChange);
 

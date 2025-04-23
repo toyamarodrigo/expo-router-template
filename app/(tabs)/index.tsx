@@ -35,6 +35,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<FormValues>({ resolver });
   const onSubmit = async (data) => {
+    // eslint-disable-next-line no-console
     console.log("data", data);
   };
 

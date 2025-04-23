@@ -17,8 +17,8 @@ https://github.com/user-attachments/assets/6aad9f74-8404-4fd3-8dc3-59e2f3b6241c
 
 ## Key Features
 
-- **[Expo (v51)](https://docs.expo.dev/):** Build cross-platform mobile apps for iOS and Android using a single codebase.
-- **[Expo Router (v3)](https://docs.expo.dev/router/introduction/):** Define your application's navigation structure with a flexible and declarative approach.
+- **[Expo (v52)](https://docs.expo.dev/):** Build cross-platform mobile apps for iOS and Android using a single codebase.
+- **[Expo Router (v4)](https://docs.expo.dev/router/introduction/):** Define your application's navigation structure with a flexible and declarative approach.
 - **[TypeScript](https://www.typescriptlang.org/):** Ensure type safety and improve code maintainability.
 - **[Zustand](https://zustand-demo.pmnd.rs/):** Manage application state in a centralized and reactive way.
 - **[TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview):** Simplify data fetching and caching with robust functionalities.
