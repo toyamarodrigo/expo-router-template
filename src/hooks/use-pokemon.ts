@@ -1,0 +1,29 @@
+import { useQuery } from "@tanstack/react-query";
+
+import { pokemonKeys } from "@api/query-factory";
+
+const usePokemonList = () => {
+  const { data, isLoading, isError, error, refetch } = useQuery(pokemonKeys.pokemon.list([], 20, 0));
+
+  return {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  };
+};
+
+const usePokemonDetail = (id: number) => {
+  const { data, isLoading, isError, error, refetch } = useQuery(pokemonKeys.pokemon.detail(id));
+
+  return {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  };
+};
+
+export { usePokemonList, usePokemonDetail };
