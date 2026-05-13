@@ -1,13 +1,8 @@
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Linking } from "react-native";
-import { Link } from "expo-router";
-import { useSegments } from "expo-router";
-import { Drawer } from "expo-router/drawer";
+import { Slot } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
 import * as Updates from "expo-updates";
-
-import { ROUTES } from "@utils/constants";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "../global.css";
 
@@ -29,10 +24,6 @@ const client = new QueryClient({
 
 const RootLayout = () => {
   useReactQueryDevTools(client);
-  const segments = useSegments();
-  const isLogin = segments[segments.length - 1] === "(tabs)";
-  const drawerTitle = isLogin ? "LOGIN" : segments.length > 0 ? segments[segments.length - 1].toLowerCase() : "";
-
   const runTypeMessage = Updates.isEmbeddedLaunch
     ? "This app is running from built-in code"
     : "This app is running an update";
@@ -41,35 +32,11 @@ const RootLayout = () => {
   console.log("runTypeMessage", runTypeMessage);
 
   return (
-    <QueryClientProvider client={client}>
-      <Drawer
-        drawerContent={(props) => {
-          return (
-            <DrawerContentScrollView {...props}>
-              <DrawerItem label="Website" onPress={() => Linking.openURL("https://www.expo.dev/")} />
-              <Link href={ROUTES.LOGIN} onPress={() => props.navigation.closeDrawer()}>
-                Login
-              </Link>
-              <Link href={ROUTES.HOME} onPress={() => props.navigation.closeDrawer()}>
-                Home
-              </Link>
-              <Link
-                href={{ pathname: ROUTES.DETAILS, params: { user: "evanbacon" } }}
-                onPress={() => props.navigation.closeDrawer()}
-              >
-                Details
-              </Link>
-              <Link href={ROUTES.COUNTER} onPress={() => props.navigation.closeDrawer()}>
-                Counter
-              </Link>
-            </DrawerContentScrollView>
-          );
-        }}
-        screenOptions={{
-          title: drawerTitle,
-        }}
-      />
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={client}>
+        <Slot />
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 };
 
