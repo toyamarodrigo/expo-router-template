@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Text, View, KeyboardAvoidingView, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -48,8 +48,15 @@ const Login = () => {
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} className="flex-1 bg-background">
-      <ScrollView contentContainerClassName="flex-1 justify-center px-6 py-12" contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled">
+    <KeyboardAvoidingView
+      behavior={process.env.EXPO_OS === "ios" ? "padding" : "height"}
+      className="flex-1 bg-background"
+    >
+      <ScrollView
+        contentContainerClassName="flex-1 justify-center px-6 py-12"
+        contentInsetAdjustmentBehavior="automatic"
+        keyboardShouldPersistTaps="handled"
+      >
         <View className="rounded-lg border border-border bg-card p-6 shadow-sm" style={{ borderCurve: "continuous" }}>
           <View className="mb-6 items-center">
             <View className="mb-3 h-12 w-12 items-center justify-center rounded-lg bg-primary">

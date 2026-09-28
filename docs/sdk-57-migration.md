@@ -84,7 +84,7 @@ bun add tailwind-merge@^2
 ### 0.5 Babel / tsconfig / convenciones
 - Quitar `react-native-reanimated/plugin`: `babel-preset-expo` ya agrega el plugin de worklets.
 - Quitar `babel-plugin-module-resolver`: Metro resuelve los `paths` de `tsconfig.json`.
-- `tsconfig.json`: `noUnusedLocals: true`; quitar `experimentalDecorators`, `sourceMap`, los alias `@layouts` y `@adapters` (las carpetas no existen). `baseUrl` se quita en Fase 2 (TS 6).
+- `tsconfig.json`: `noUnusedLocals: true`; quitar `experimentalDecorators`, `sourceMap`, `allowSyntheticDefaultImports`, `baseUrl` (con `paths` relativos `./`) y los alias `@layouts` y `@adapters` (las carpetas no existen). Así la Fase 2 (TS 6) no necesita cambios en `tsconfig.json`.
 - `Platform.OS` → `process.env.EXPO_OS` en `use-online-manager.ts` y `login.tsx`.
 
 ### 0.6 Limpieza de repo
@@ -140,8 +140,7 @@ Después, quitar `@react-navigation/drawer` y `@react-navigation/native` de `pac
 - **iOS 16.4 / Xcode 26.4.** `ios/` está en `.gitignore` (CNG): regenerar con `npx expo prebuild --clean`.
 
 ### 2.3 TypeScript 6
-- `baseUrl` está deprecado: quitarlo y dejar `paths` relativos (`"./src/components/*"`, etc.).
-- Quitar `allowSyntheticDefaultImports` (lo cubre `expo/tsconfig.base`).
+- `baseUrl` (deprecado en TS 6) ya se quitó en Fase 0.
 - Verificar `@total-typescript/ts-reset` con TS 6.
 
 **Checkpoint:** doctor, tsc, lint, smoke completo con foco en **drawer** (abrir desde el botón menú, navegar, logout) y **tabs**. Commit: `chore(deps): expo sdk 56 + router decoupling`.
@@ -172,7 +171,7 @@ Actualizar: `eslint@^9`, `eslint-config-expo@~57`, `prettier`, `eslint-plugin-pr
 
 ### 4.2 `eslint.config.js` (reemplaza `.eslintrc.js`)
 - Base: `eslint-config-expo/flat` + `@tanstack/eslint-plugin-query` `flat/recommended` + `eslint-plugin-prettier/recommended`.
-- Portar 1:1 las reglas custom: `no-console`, `react/prop-types` off, `react/no-unescaped-entities` off, `@typescript-eslint/no-unused-vars` con `_`, `import/order`, `react/self-closing-comp`, `react/jsx-sort-props`, `padding-line-between-statements`, `@tanstack/query/exhaustive-deps` y `stable-query-client` como error.
+- Portar 1:1 las reglas custom: `no-console` (permite `warn`/`error`), `react/prop-types` off, `react/no-unescaped-entities` off, `@typescript-eslint/no-unused-vars` con `_`, `import/order`, `react/self-closing-comp`, `react/jsx-sort-props`, `padding-line-between-statements`, `@tanstack/query/exhaustive-deps` y `stable-query-client` como error.
 - Mover las opciones de Prettier a `.prettierrc`.
 - `eslint-plugin-react-native`: quitar si ninguna regla lo usa.
 

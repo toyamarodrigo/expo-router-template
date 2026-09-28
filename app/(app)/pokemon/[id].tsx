@@ -111,7 +111,10 @@ const PokemonDetail = () => {
 
   return (
     <ScrollView className="flex-1 bg-background">
-      <View className="flex-row items-center border-b border-border bg-card px-4 pb-3" style={{ paddingTop: insets.top + 16 }}>
+      <View
+        className="flex-row items-center border-b border-border bg-card px-4 pb-3"
+        style={{ paddingTop: insets.top + 16 }}
+      >
         <Pressable className="mr-3" onPress={() => router.back()}>
           <MaterialCommunityIcons color="#0F172A" name="arrow-left" size={24} />
         </Pressable>
@@ -122,10 +125,7 @@ const PokemonDetail = () => {
       </View>
 
       <View className="items-center border-b border-border bg-card px-4 pb-6 pt-4">
-        <Image
-          className="h-48 w-48"
-          source={{ uri: pokemon.image }}
-        />
+        <Image className="h-48 w-48" source={{ uri: pokemon.image }} />
         <Text className="mt-4 text-2xl font-bold capitalize text-foreground">{pokemon.name}</Text>
         <Text className="mt-1 text-base text-muted-foreground">#{String(pokemon.id).padStart(3, "0")}</Text>
         <View className="mt-3 rounded-full bg-primary/10 px-4 py-1.5">

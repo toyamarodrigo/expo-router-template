@@ -53,9 +53,15 @@ type PokemonListItemProps = {
 
 const PokemonListItem = memo(function PokemonListItem({ name, id }: PokemonListItemProps) {
   return (
-    <Link href={`/(app)/pokemon/${id}`} asChild>
-      <Pressable className="flex-row items-center gap-3 rounded-lg border border-border bg-card p-4" style={{ borderCurve: "continuous" }}>
-        <View className="h-10 w-10 items-center justify-center rounded-lg bg-secondary" style={{ borderCurve: "continuous" }}>
+    <Link asChild href={`/(app)/pokemon/${id}`}>
+      <Pressable
+        className="flex-row items-center gap-3 rounded-lg border border-border bg-card p-4"
+        style={{ borderCurve: "continuous" }}
+      >
+        <View
+          className="h-10 w-10 items-center justify-center rounded-lg bg-secondary"
+          style={{ borderCurve: "continuous" }}
+        >
           <MaterialCommunityIcons color="#64748B" name="pokeball" size={20} />
         </View>
         <View className="flex-1">

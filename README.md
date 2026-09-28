@@ -80,3 +80,9 @@ bun start
 | `demo` | `password` |
 
 Login with these credentials to access the app. Invalid credentials will show an error message.
+
+> These credentials are hardcoded for the demo only. Replace the auth store with a real auth provider before shipping.
+
+## Environment Variables
+
+Every `EXPO_PUBLIC_*` variable is inlined into the JavaScript bundle, so anyone with the app can read it. Use them only for public values (for example, a public API URL). Never put secrets (client secrets, API keys, tokens) in `EXPO_PUBLIC_*` variables: keep them on a backend or in an API route (`+api.ts`), or use EAS environment variables for build-time values.

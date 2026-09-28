@@ -32,6 +32,7 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       user: null,
       login: (username: string, password: string) => {
+        // DEMO ONLY: hardcoded credentials. Replace with a real auth provider; never ship credentials in the client.
         const isValid = username === "demo" && password === "password";
 
         if (isValid) {
@@ -47,10 +48,11 @@ export const useAuthStore = create<AuthState>()(
     {
       name: "auth-storage",
       storage: secureStorage,
-      partialize: (state) => ({
-        isAuthenticated: state.isAuthenticated,
-        user: state.user,
-      }) as AuthState,
+      partialize: (state) =>
+        ({
+          isAuthenticated: state.isAuthenticated,
+          user: state.user,
+        }) as AuthState,
     },
   ),
 );

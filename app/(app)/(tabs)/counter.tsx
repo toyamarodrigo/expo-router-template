@@ -29,35 +29,35 @@ const Counter = () => {
         </View>
       </View>
       <View className="flex-1 items-center justify-center px-6">
-      <View className="w-full max-w-sm rounded-lg border border-border bg-card p-6">
-        <View className="mb-6 items-center">
-          <View className="mb-3 h-12 w-12 items-center justify-center rounded-lg bg-secondary">
-            <MaterialCommunityIcons color="#64748B" name="counter" size={24} />
+        <View className="w-full max-w-sm rounded-lg border border-border bg-card p-6">
+          <View className="mb-6 items-center">
+            <View className="mb-3 h-12 w-12 items-center justify-center rounded-lg bg-secondary">
+              <MaterialCommunityIcons color="#64748B" name="counter" size={24} />
+            </View>
+            <Text className="text-xl font-bold text-foreground">Counter</Text>
+            <Text className="mt-0.5 text-sm text-muted-foreground">Zustand state management</Text>
           </View>
-          <Text className="text-xl font-bold text-foreground">Counter</Text>
-          <Text className="mt-0.5 text-sm text-muted-foreground">Zustand state management</Text>
-        </View>
 
-        <View className="mb-6 items-center rounded-md bg-secondary px-6 py-4">
-          <Text className="text-5xl font-bold text-foreground">{count}</Text>
-        </View>
+          <View className="mb-6 items-center rounded-md bg-secondary px-6 py-4">
+            <Text className="text-5xl font-bold text-foreground">{count}</Text>
+          </View>
 
-        <View className="flex-row gap-3">
-          <View className="flex-1">
-            <Button variant="outline" onPress={decrement}>
-              -
-            </Button>
-          </View>
-          <View className="flex-1">
-            <Button variant="secondary" onPress={reset}>
-              Reset
-            </Button>
-          </View>
-          <View className="flex-1">
-            <Button onPress={increment}>+</Button>
+          <View className="flex-row gap-3">
+            <View className="flex-1">
+              <Button variant="outline" onPress={decrement}>
+                -
+              </Button>
+            </View>
+            <View className="flex-1">
+              <Button variant="secondary" onPress={reset}>
+                Reset
+              </Button>
+            </View>
+            <View className="flex-1">
+              <Button onPress={increment}>+</Button>
+            </View>
           </View>
         </View>
-      </View>
       </View>
     </View>
   );
