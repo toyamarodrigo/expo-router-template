@@ -7,7 +7,12 @@
     "icon": "./assets/images/icon.png",
     "scheme": "acme",
     "userInterfaceStyle": "automatic",
-    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/67c2667d-6254-41da-a5a7-ac8aec93cfd4"
+    },
+    "runtimeVersion": {
+      "policy": "fingerprint"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.toyama.rodrigo.expo-router-template",

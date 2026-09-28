@@ -86,3 +86,16 @@ Login with these credentials to access the app. Invalid credentials will show an
 ## Environment Variables
 
 Every `EXPO_PUBLIC_*` variable is inlined into the JavaScript bundle, so anyone with the app can read it. Use them only for public values (for example, a public API URL). Never put secrets (client secrets, API keys, tokens) in `EXPO_PUBLIC_*` variables: keep them on a backend or in an API route (`+api.ts`), or use EAS environment variables for build-time values.
+
+## EAS Build & Update
+
+Build profiles (`development`, `preview`, `production`) live in `eas.json` and share a `base` profile that pins Node 24.
+
+`runtimeVersion` uses the `fingerprint` policy: EAS computes it from the native layer (dependencies, config plugins, native config). An update only reaches builds with the same fingerprint, so a JS-only change ships as an update and a native change needs a new build.
+
+```bash
+eas build --profile preview --platform all
+eas update --channel preview --environment preview --message "Describe the change"
+```
+
+`--environment` selects which EAS environment variables are loaded into the update bundle. Use the environment that matches the channel.

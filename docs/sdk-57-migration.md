@@ -31,7 +31,7 @@ SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10-
 - [x] Fase 4 — ESLint 9 flat config (adelantada)
 - [x] Fase 5 — librerías
 - [x] Fase 6 — React Compiler
-- [ ] Fase 7 — EAS
+- [x] Fase 7 — EAS
 - [ ] Fase 8 — tests (8.1) · [x] CI + Dependabot (8.2, adelantada)
 - [ ] Fase 9 — bugs y cierre
 
@@ -267,6 +267,8 @@ npx expo install babel-plugin-react-compiler
 - Documentar `eas update --channel <x> --environment <y>`.
 
 Commit: `chore(eas): fingerprint runtime policy`.
+
+**Notas de ejecución:** `cli.version` `>= 24.8.0`. Node `24.21.0` exacto (la doc de EAS solo muestra versiones exactas) en un perfil `base` que los demás extienden. Comandos documentados en el README ("EAS Build & Update").
 
 ---
 
