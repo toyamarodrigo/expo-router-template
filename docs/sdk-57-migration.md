@@ -181,8 +181,10 @@ Actualizar: `eslint@^9`, `eslint-config-expo@~57`, `prettier`, `eslint-plugin-pr
 "lint:fix": "expo lint --fix",
 "typecheck": "tsc --noEmit",
 "test": "jest",
-"doctor": "expo-doctor"
+"doctor": "bunx expo-doctor@latest"
 ```
+
+> Nota: la Fase 4 se ejecutó antes de la Fase 2 (sobre SDK 55), porque la Fase 2 necesita Xcode 26.4+. `eslint-config-expo` queda en `~55` y sube con `expo install --fix` en las Fases 2 y 3.
 
 **Checkpoint:** `bun run lint` sin errores nuevos. Commit: `chore(lint): eslint 9 flat config`.
 

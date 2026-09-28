@@ -19,7 +19,9 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "lint:fix": "expo lint --fix"
+    "lint:fix": "expo lint --fix",
+    "typecheck": "tsc --noEmit",
+    "doctor": "bunx expo-doctor@latest"
   },
   "dependencies": {
     "@dev-plugins/react-query": "~0.2.0",
@@ -64,29 +66,14 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
-    "@eslint/compat": "^1.2.8",
-    "@eslint/js": "^9.25.1",
-    "@tanstack/eslint-plugin-query": "^5.73.3",
+    "@tanstack/eslint-plugin-query": "^5.104.0",
     "@total-typescript/ts-reset": "^0.6.1",
-    "@types/jest": "^29.5.12",
     "@types/react": "~19.2.10",
-    "@types/react-test-renderer": "^18.0.7",
-    "@typescript-eslint/eslint-plugin": "^8.31.0",
-    "@typescript-eslint/parser": "^8.31.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9",
     "eslint-config-expo": "~55.0.1",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.2.6",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-native": "^5.0.0",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3",
-    "ts-node": "^10.9.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.9.9",
     "typescript": "^5.8.3"
   }
 }
