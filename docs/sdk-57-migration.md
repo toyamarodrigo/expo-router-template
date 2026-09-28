@@ -30,7 +30,7 @@ SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10-
 - [x] Fase 3 — SDK 57 (smoke iOS pendiente: requiere Xcode 26.4+)
 - [x] Fase 4 — ESLint 9 flat config (adelantada)
 - [x] Fase 5 — librerías
-- [ ] Fase 6 — React Compiler
+- [x] Fase 6 — React Compiler
 - [ ] Fase 7 — EAS
 - [ ] Fase 8 — tests (8.1) · [x] CI + Dependabot (8.2, adelantada)
 - [ ] Fase 9 — bugs y cierre
@@ -253,6 +253,10 @@ npx expo install babel-plugin-react-compiler
 - Mantener `useState(() => new QueryClient(...))` (identidad estable).
 
 **Checkpoint:** smoke + React DevTools. Commit: `feat: enable react compiler`.
+
+**Notas de ejecución:**
+- No hace falta instalar `babel-plugin-react-compiler`: en SDK 57 es dependencia directa de `babel-preset-expo`, y Metro lo activa con `experiments.reactCompiler`.
+- Se quitó `memo(PokemonListItem)`. Se mantiene el `useCallback` de `use-refresh-on-focus.ts`: `useFocusEffect` exige un callback estable, y es mejor dejarlo explícito que depender de la memoización del compilador.
 
 ---
 

@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link, useNavigation } from "expo-router";
 import { DrawerActions } from "expo-router/react-navigation";
@@ -51,7 +50,7 @@ type PokemonListItemProps = {
   id: string;
 };
 
-const PokemonListItem = memo(function PokemonListItem({ name, id }: PokemonListItemProps) {
+function PokemonListItem({ name, id }: PokemonListItemProps) {
   return (
     <Link asChild href={`/(app)/pokemon/${id}`}>
       <Pressable
@@ -72,7 +71,7 @@ const PokemonListItem = memo(function PokemonListItem({ name, id }: PokemonListI
       </Pressable>
     </Link>
   );
-});
+}
 
 const Home = () => {
   const { data, isLoading, refetch } = usePokemonList();
