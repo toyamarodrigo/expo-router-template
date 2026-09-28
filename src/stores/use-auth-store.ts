@@ -20,11 +20,16 @@ export class AuthError extends Error {
   }
 }
 
-const secureStorage = createJSONStorage<AuthState>(() => ({
-  getItem: (key: string) => SecureStore.getItemAsync(key),
-  setItem: (key: string, value: string) => SecureStore.setItemAsync(key, value),
-  removeItem: (key: string) => SecureStore.deleteItemAsync(key),
-}));
+// expo-secure-store has no web implementation, so web falls back to localStorage (not encrypted).
+const secureStorage = createJSONStorage<AuthState>(() =>
+  process.env.EXPO_OS === "web"
+    ? localStorage
+    : {
+        getItem: (key: string) => SecureStore.getItemAsync(key),
+        setItem: (key: string, value: string) => SecureStore.setItemAsync(key, value),
+        removeItem: (key: string) => SecureStore.deleteItemAsync(key),
+      },
+);
 
 export const useAuthStore = create<AuthState>()(
   persist(
