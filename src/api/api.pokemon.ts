@@ -1,15 +1,14 @@
-import axios from "axios";
-
 import { pokemonApiConfig } from "./api.config";
+import { getJson } from "./http";
 
-import { Pokemon, PokemonApiResponse, PokemonList } from "@models/pokemon.type";
+import { Pokemon, PokemonApiResponse, pokemonApiResponseSchema, pokemonListSchema } from "@models/pokemon.type";
 
 type GetPokemonListParams = {
   limit: number;
   offset: number;
 };
 
-function transformPokemonResponse(raw: PokemonApiResponse): Pokemon {
+export function transformPokemonResponse(raw: PokemonApiResponse): Pokemon {
   const statMap = Object.fromEntries(raw.stats.map((s) => [s.stat.name, s.base_stat]));
 
   return {
@@ -33,13 +32,10 @@ function transformPokemonResponse(raw: PokemonApiResponse): Pokemon {
 
 export const pokemonApi = {
   getPokemon: async (id: number) => {
-    const result = await axios.get<PokemonApiResponse>(`${pokemonApiConfig.baseURL}/pokemon/${id}`);
+    const raw = await getJson(`${pokemonApiConfig.baseURL}/pokemon/${id}`, pokemonApiResponseSchema);
 
-    return transformPokemonResponse(result.data);
+    return transformPokemonResponse(raw);
   },
-  getPokemonList: async ({ limit, offset }: GetPokemonListParams) => {
-    const result = await axios.get<PokemonList>(`${pokemonApiConfig.baseURL}/pokemon?limit=${limit}&offset=${offset}`);
-
-    return result.data;
-  },
+  getPokemonList: ({ limit, offset }: GetPokemonListParams) =>
+    getJson(`${pokemonApiConfig.baseURL}/pokemon?limit=${limit}&offset=${offset}`, pokemonListSchema),
 };

@@ -29,7 +29,7 @@ SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10-
 - [x] Fase 2 — SDK 56 + router sin React Navigation
 - [x] Fase 3 — SDK 57 (smoke iOS pendiente: requiere Xcode 26.4+)
 - [x] Fase 4 — ESLint 9 flat config (adelantada)
-- [ ] Fase 5 — librerías
+- [x] Fase 5 — librerías
 - [ ] Fase 6 — React Compiler
 - [ ] Fase 7 — EAS
 - [ ] Fase 8 — tests (8.1) · [x] CI + Dependabot (8.2, adelantada)
@@ -233,6 +233,11 @@ bun remove axios
 ### 5.4 Resto
 Bump a la última minor/patch: `@tanstack/react-query`, `react-hook-form`, `zustand`, `@lukemorales/query-key-factory`, `nativewind@^4.2.7`, `postcss`, `prettier`. `@shopify/flash-list` y `@react-native-community/netinfo`: la versión de `expo install --fix`.
 
+### Notas de ejecución
+- **Iconos:** sin codemod; migración manual con el wrapper `Icon` / `IconName` (el paquete exporta `MaterialDesignIconsIconName`). La fuente carga con `expo-font`: no hace falta el config plugin.
+- **`@tanstack/query-core` explícito:** `@lukemorales/query-key-factory` lo pide como peer y bun lo dejó en una versión vieja (dos `QueryClient` → error de tipos `#private`). Se declara directo con el mismo rango que `@tanstack/react-query`. Al subir react-query, subir los dos juntos.
+- **Tipos reales de PokeAPI:** `next`, `previous` y la imagen pueden ser `null`. Los tipos manuales lo escondían.
+
 **Checkpoint:** tsc, lint, smoke. Commit: `chore(deps): icons, fetch + zod 4, libs`.
 
 ---
@@ -288,7 +293,7 @@ Commit: `ci: lint, typecheck, tests, doctor`.
 ## Fase 9 — Bugs y cierre
 
 - **Hidratación del auth store:** `AuthGate` redirige antes de que `persist` lea SecureStore (flash de login). Esperar `useAuthStore.persist.hasHydrated()` y mantener el splash con `SplashScreen.preventAutoHideAsync()`.
-- **`query-factory.ts`:** `list(filters: Pokemon[], …)` siempre recibe `[]`; simplificar la key a `{ limit, offset }`.
+- ~~**`query-factory.ts`:** simplificar la key a `{ limit, offset }`~~ (hecho en Fase 5, junto con `fetch` + Zod).
 - **README (inglés):** requisitos (Node 24, Xcode 26.4, iOS 16.4), versiones, scripts, regla de `EXPO_PUBLIC_*`.
 - **`TODO.md`:** marcar React Query detail, ESLint y Tsconfig como hechos.
 - **Skills:** actualizar `.agents/skills` (en especial `upgrading-expo` y `expo-tailwind-setup`).

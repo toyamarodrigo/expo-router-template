@@ -1,13 +1,13 @@
 import { View, Text, Pressable } from "react-native";
 import { Drawer, DrawerContentScrollView, type DrawerContentComponentProps } from "expo-router/drawer";
 import { useRouter } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { Icon, type IconName } from "@components/icon";
 import { useAuthStore } from "@stores/use-auth-store";
 import { ROUTES } from "@utils/constants";
 
 type DrawerNavItemProps = {
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
+  icon: IconName;
   label: string;
   onPress: () => void;
 };
@@ -15,7 +15,7 @@ type DrawerNavItemProps = {
 function DrawerNavItem({ icon, label, onPress }: DrawerNavItemProps) {
   return (
     <Pressable className="flex-row items-center gap-3 rounded-md px-3 py-2.5 active:bg-secondary" onPress={onPress}>
-      <MaterialCommunityIcons color="#64748B" name={icon} size={20} />
+      <Icon color="#64748B" name={icon} size={20} />
       <Text className="text-sm font-medium text-foreground">{label}</Text>
     </Pressable>
   );
@@ -58,7 +58,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
             logout();
           }}
         >
-          <MaterialCommunityIcons color="#EF4444" name="logout" size={20} />
+          <Icon color="#EF4444" name="logout" size={20} />
           <Text className="text-sm font-medium text-destructive">Log out</Text>
         </Pressable>
       </View>

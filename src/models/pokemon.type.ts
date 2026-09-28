@@ -1,7 +1,37 @@
+import { z } from "zod";
+
+// PokeAPI response schemas. Only the fields the UI uses are validated.
+export const pokemonApiResponseSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  height: z.number(),
+  weight: z.number(),
+  sprites: z.object({
+    other: z.object({
+      "official-artwork": z.object({
+        front_default: z.string().nullable(),
+      }),
+    }),
+  }),
+  types: z.array(z.object({ type: z.object({ name: z.string() }) })).min(1),
+  abilities: z.array(z.object({ ability: z.object({ name: z.string() }) })),
+  stats: z.array(z.object({ base_stat: z.number(), stat: z.object({ name: z.string() }) })),
+});
+
+export const pokemonListSchema = z.object({
+  count: z.number(),
+  next: z.string().nullable(),
+  previous: z.string().nullable(),
+  results: z.array(z.object({ name: z.string(), url: z.string() })),
+});
+
+export type PokemonApiResponse = z.infer<typeof pokemonApiResponseSchema>;
+export type PokemonList = z.infer<typeof pokemonListSchema>;
+
 export type Pokemon = {
   id: number;
   name: string;
-  image: string;
+  image: string | null;
   type: string;
   height: number;
   weight: number;
@@ -14,47 +44,4 @@ export type Pokemon = {
     specialDefense: number;
     speed: number;
   };
-};
-
-export type PokemonApiResponse = {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  sprites: {
-    other: {
-      "official-artwork": {
-        front_default: string;
-      };
-    };
-  };
-  types: {
-    slot: number;
-    type: {
-      name: string;
-    };
-  }[];
-  abilities: {
-    ability: {
-      name: string;
-    };
-  }[];
-  stats: {
-    base_stat: number;
-    stat: {
-      name: string;
-    };
-  }[];
-};
-
-export type PokemonList = {
-  count: number;
-  next: string;
-  previous: string;
-  results: PokemonListItem[];
-};
-
-type PokemonListItem = {
-  name: string;
-  url: string;
 };

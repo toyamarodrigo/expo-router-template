@@ -3,9 +3,9 @@ import { Pressable, Text, View } from "react-native";
 import { Link, useNavigation } from "expo-router";
 import { DrawerActions } from "expo-router/react-navigation";
 import { FlashList } from "@shopify/flash-list";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { Icon } from "@components/icon";
 import { usePokemonList } from "@hooks/use-pokemon";
 import { useRefreshByUser } from "@hooks/use-refresh-by-user";
 import { useRefreshOnFocus } from "@hooks/use-refresh-on-focus";
@@ -36,7 +36,7 @@ function LoadingSkeleton() {
 function EmptyState() {
   return (
     <View className="flex-1 items-center justify-center p-8">
-      <MaterialCommunityIcons color="#94A3B8" name="pokeball" size={48} />
+      <Icon color="#94A3B8" name="pokeball" size={48} />
       <Text className="mt-3 text-base font-medium text-muted-foreground">No Pokemon found</Text>
     </View>
   );
@@ -62,13 +62,13 @@ const PokemonListItem = memo(function PokemonListItem({ name, id }: PokemonListI
           className="h-10 w-10 items-center justify-center rounded-lg bg-secondary"
           style={{ borderCurve: "continuous" }}
         >
-          <MaterialCommunityIcons color="#64748B" name="pokeball" size={20} />
+          <Icon color="#64748B" name="pokeball" size={20} />
         </View>
         <View className="flex-1">
           <Text className="text-base font-semibold capitalize text-foreground">{name}</Text>
           <Text className="text-sm text-muted-foreground">#{id.padStart(3, "0")}</Text>
         </View>
-        <MaterialCommunityIcons color="#94A3B8" name="chevron-right" size={20} />
+        <Icon color="#94A3B8" name="chevron-right" size={20} />
       </Pressable>
     </Link>
   );
@@ -89,7 +89,7 @@ const Home = () => {
       <View className="border-b border-border bg-card px-4 pb-3" style={{ paddingTop: insets.top + 16 }}>
         <View className="flex-row items-center gap-3">
           <Pressable hitSlop={8} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-            <MaterialCommunityIcons color="#64748B" name="menu" size={24} />
+            <Icon color="#64748B" name="menu" size={24} />
           </Pressable>
           <View>
             <Text className="text-2xl font-bold text-foreground">Pokemon</Text>

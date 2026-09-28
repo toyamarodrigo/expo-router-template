@@ -1,10 +1,10 @@
 import { Pressable, Text, View } from "react-native";
 import { useNavigation } from "expo-router";
 import { DrawerActions } from "expo-router/react-navigation";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Button } from "@components/button";
+import { Icon } from "@components/icon";
 import { useAppStore } from "@stores/use-app-store";
 
 const Counter = () => {
@@ -20,7 +20,7 @@ const Counter = () => {
       <View className="border-b border-border bg-card px-4 pb-3" style={{ paddingTop: insets.top + 16 }}>
         <View className="flex-row items-center gap-3">
           <Pressable hitSlop={8} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-            <MaterialCommunityIcons color="#64748B" name="menu" size={24} />
+            <Icon color="#64748B" name="menu" size={24} />
           </Pressable>
           <View>
             <Text className="text-2xl font-bold text-foreground">Counter</Text>
@@ -32,7 +32,7 @@ const Counter = () => {
         <View className="w-full max-w-sm rounded-lg border border-border bg-card p-6">
           <View className="mb-6 items-center">
             <View className="mb-3 h-12 w-12 items-center justify-center rounded-lg bg-secondary">
-              <MaterialCommunityIcons color="#64748B" name="counter" size={24} />
+              <Icon color="#64748B" name="counter" size={24} />
             </View>
             <Text className="text-xl font-bold text-foreground">Counter</Text>
             <Text className="mt-0.5 text-sm text-muted-foreground">Zustand state management</Text>
