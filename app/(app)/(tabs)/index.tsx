@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link, useNavigation } from "expo-router";
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions } from "expo-router/react-navigation";
 import { FlashList } from "@shopify/flash-list";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

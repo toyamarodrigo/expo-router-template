@@ -1,6 +1,5 @@
 import { View, Text, Pressable } from "react-native";
-import { DrawerContentScrollView, type DrawerContentComponentProps } from "@react-navigation/drawer";
-import { Drawer } from "expo-router/drawer";
+import { Drawer, DrawerContentScrollView, type DrawerContentComponentProps } from "expo-router/drawer";
 import { useRouter } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 

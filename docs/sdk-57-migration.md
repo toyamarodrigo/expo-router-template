@@ -22,6 +22,19 @@
 
 SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10--backlog-sdk-58).
 
+### Progreso
+
+- [x] Fase 0 — limpieza previa (+ fixes web: `import.meta`, auth storage)
+- [x] Fase 1 — SDK 55
+- [ ] Fase 2 — SDK 56 (**bloqueada: requiere Xcode 26.4+**)
+- [ ] Fase 3 — SDK 57
+- [x] Fase 4 — ESLint 9 flat config (adelantada)
+- [ ] Fase 5 — librerías
+- [ ] Fase 6 — React Compiler
+- [ ] Fase 7 — EAS
+- [ ] Fase 8 — tests (8.1) · [x] CI + Dependabot (8.2, adelantada)
+- [ ] Fase 9 — bugs y cierre
+
 ### Decisiones
 
 | Tema | Decisión | Motivo |
