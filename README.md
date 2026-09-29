@@ -201,6 +201,8 @@ Dynamic routes (for example, `/pokemon/25`) also need a rewrite to their generat
 
 ## EAS Build & Update
 
+**First step for a new app:** `app.json` contains this template's EAS project ID in two places: `extra.eas.projectId` and `updates.url`. Replace both with your own project before you build or publish, or your app will request updates from the template's project. For example, remove both values, run `eas init` (sets `extra.eas.projectId`), and then run `eas update:configure` (sets `updates.url`), and check that both values use the same ID.
+
 Build profiles (`development`, `preview`, `production`) live in `eas.json` and share a `base` profile that pins Node 24.
 
 `runtimeVersion` uses the `fingerprint` policy: EAS computes it from the native layer (dependencies, config plugins, native config). An update only reaches builds with the same fingerprint, so a JS-only change ships as an update and a native change needs a new build.
