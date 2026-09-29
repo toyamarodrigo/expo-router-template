@@ -85,8 +85,11 @@ This setup uses:
 
 NativeWind 5 is a preview release. Versions change often, so this skill does not pin them. Read the current [official NativeWind v5 migration guide](https://www.nativewind.dev/v5/guides/migrate-from-v4) before you start.
 
+`nativewind` and `react-native-css` must be a matched pair: each NativeWind preview needs one exact `react-native-css` version, so do not install independent tags such as `@preview` and `@latest`. Take both versions from the current guide, then let Expo align the native dependencies:
+
 ```bash
-bunx expo install nativewind@preview react-native-css@latest react-native-reanimated react-native-safe-area-context
+bunx expo install nativewind@<version-from-guide> react-native-css@<matching-version-from-guide>
+bunx expo install react-native-reanimated react-native-worklets react-native-safe-area-context expo-system-ui
 bunx expo install --dev tailwindcss @tailwindcss/postcss postcss
 ```
 
@@ -101,7 +104,7 @@ bunx expo install --dev tailwindcss @tailwindcss/postcss postcss
 
 ### Metro Config (v5)
 
-Update `metro.config.js`. `withNativewind` takes only the Metro config (no second options argument, and no v4 `input` option):
+Update `metro.config.js`. `withNativewind` takes the Metro config and an optional second options argument (`globalClassNamePolyfill`, `typescriptEnvPath`, `inlineVariables`; see the [API docs](https://www.nativewind.dev/v5/api/with-nativewind)). The v4 `input` option does not exist in v5. The defaults are enough for this template:
 
 ```js
 // metro.config.js
@@ -510,7 +513,7 @@ function MyComponent() {
 3. **CSS imports** - Use `@import "tailwindcss/..."` and `@import "nativewind/theme"` instead of `@tailwind` directives
 4. **Theme config** - Use `@theme` in CSS instead of `tailwind.config.js`
 5. **Component wrappers** - Must wrap components with `useCssElement` for className support
-6. **Metro config** - Use `withNativewind(config)` with no options (no `input`)
+6. **Metro config** - Use `withNativewind(config)`; options are optional, and there is no v4 `input` option
 7. **lightningcss override** - Needed; get the compatible version from the current migration guide
 
 ## Troubleshooting (v5)
