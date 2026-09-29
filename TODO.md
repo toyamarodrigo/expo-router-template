@@ -8,8 +8,8 @@
 - [ ] Inner navigation example
 - [ ] Bottom sheet example
 - [ ] Dialog example
-- [ ] React Query example
+- [x] React Query example
   - [x] List
-  - [ ] Detail
-- [ ] Eslint
-- [ ] Tsconfig
+  - [x] Detail
+- [x] Eslint
+- [x] Tsconfig

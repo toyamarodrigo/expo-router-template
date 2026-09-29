@@ -1,9 +1,9 @@
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Button } from "@components/button";
+import { Icon, type IconName } from "@components/icon";
 import { usePokemonDetail } from "@hooks/use-pokemon";
 
 function DetailSkeleton() {
@@ -46,7 +46,7 @@ type ErrorStateProps = {
 function ErrorState({ message, onRetry }: ErrorStateProps) {
   return (
     <View className="flex-1 items-center justify-center bg-background p-8">
-      <MaterialCommunityIcons color="#EF4444" name="alert-circle-outline" size={48} />
+      <Icon color="#EF4444" name="alert-circle-outline" size={48} />
       <Text className="mt-3 text-center text-base font-medium text-muted-foreground">{message}</Text>
       <View className="mt-4">
         <Button onPress={onRetry}>Try Again</Button>
@@ -77,7 +77,7 @@ function StatBar({ label, value }: StatBarProps) {
 }
 
 type InfoRowProps = {
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
+  icon: IconName;
   label: string;
   value: string;
 };
@@ -85,7 +85,7 @@ type InfoRowProps = {
 function InfoRow({ icon, label, value }: InfoRowProps) {
   return (
     <View className="flex-row items-center gap-3">
-      <MaterialCommunityIcons color="#64748B" name={icon} size={20} />
+      <Icon color="#64748B" name={icon} size={20} />
       <Text className="text-sm text-muted-foreground">{label}</Text>
       <Text className="ml-auto text-sm font-semibold capitalize text-foreground">{value}</Text>
     </View>
@@ -111,9 +111,12 @@ const PokemonDetail = () => {
 
   return (
     <ScrollView className="flex-1 bg-background">
-      <View className="flex-row items-center border-b border-border bg-card px-4 pb-3" style={{ paddingTop: insets.top + 16 }}>
+      <View
+        className="flex-row items-center border-b border-border bg-card px-4 pb-3"
+        style={{ paddingTop: insets.top + 16 }}
+      >
         <Pressable className="mr-3" onPress={() => router.back()}>
-          <MaterialCommunityIcons color="#0F172A" name="arrow-left" size={24} />
+          <Icon color="#0F172A" name="arrow-left" size={24} />
         </Pressable>
         <View>
           <Text className="text-2xl font-bold text-foreground">Pokemon</Text>
@@ -122,10 +125,7 @@ const PokemonDetail = () => {
       </View>
 
       <View className="items-center border-b border-border bg-card px-4 pb-6 pt-4">
-        <Image
-          className="h-48 w-48"
-          source={{ uri: pokemon.image }}
-        />
+        <Image className="h-48 w-48" source={{ uri: pokemon.image ?? undefined }} />
         <Text className="mt-4 text-2xl font-bold capitalize text-foreground">{pokemon.name}</Text>
         <Text className="mt-1 text-base text-muted-foreground">#{String(pokemon.id).padStart(3, "0")}</Text>
         <View className="mt-3 rounded-full bg-primary/10 px-4 py-1.5">

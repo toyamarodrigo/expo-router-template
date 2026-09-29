@@ -1,6 +1,5 @@
 {
   "expo": {
-    "newArchEnabled": true,
     "name": "expo-router-template",
     "slug": "expo-router-template",
     "version": "1.0.0",
@@ -8,15 +7,12 @@
     "icon": "./assets/images/icon.png",
     "scheme": "acme",
     "userInterfaceStyle": "automatic",
-    "runtimeVersion": "1.0.0",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "updates": {
+      "url": "https://u.expo.dev/67c2667d-6254-41da-a5a7-ac8aec93cfd4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "runtimeVersion": {
+      "policy": "fingerprint"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.toyama.rodrigo.expo-router-template",
@@ -43,12 +39,23 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
       "expo-font",
       "expo-web-browser",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-status-bar"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "reactCompiler": true
     }
   }
 }
