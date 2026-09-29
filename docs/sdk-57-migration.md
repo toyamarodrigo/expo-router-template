@@ -268,7 +268,7 @@ npx expo install babel-plugin-react-compiler
 
 Commit: `chore(eas): fingerprint runtime policy`.
 
-**Notas de ejecución:** `cli.version` `>= 24.8.0`. Node `24.21.0` exacto (la doc de EAS solo muestra versiones exactas) en un perfil `base` que los demás extienden. Comandos documentados en el README ("EAS Build & Update").
+**Notas de ejecución:** `updates.url` agregado (`https://u.expo.dev/<EAS_PROJECT_ID>`, mismo `projectId` que `extra.eas`); sin esa URL `expo-updates` no consulta EAS Update. Verificado el 2026-09-29: `expo-doctor` 21/21 (después de subir los parches de SDK 57 en un commit aparte), typecheck y lint verdes. Pendiente para la persona: `eas --version` y `eas config --profile preview` (`eas-cli` no está instalado en la máquina de la migración) y `npx expo config` (bloqueado por la configuración gestionada del asistente). `cli.version` `>= 24.8.0`. Node `24.21.0` exacto (la doc de EAS solo muestra versiones exactas) en un perfil `base` que los demás extienden. Comandos documentados en el README ("EAS Build & Update").
 
 ---
 
