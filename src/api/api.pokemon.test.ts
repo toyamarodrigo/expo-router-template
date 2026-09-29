@@ -68,7 +68,7 @@ describe("pokemonApi", () => {
 
     const pokemon = await pokemonApi.getPokemon(1);
 
-    expect(fetchMock).toHaveBeenCalledWith("https://pokeapi.co/api/v2/pokemon/1");
+    expect(fetchMock).toHaveBeenCalledWith("https://pokeapi.co/api/v2/pokemon/1", { signal: expect.any(AbortSignal) });
     expect(pokemon.name).toBe("bulbasaur");
     expect(pokemon.type).toBe("grass");
     expect(pokemon.image).toBe("https://example.com/artwork/1.png");
@@ -113,7 +113,9 @@ describe("pokemonApi", () => {
 
     const list = await pokemonApi.getPokemonList({ limit: 2, offset: 0 });
 
-    expect(fetchMock).toHaveBeenCalledWith("https://pokeapi.co/api/v2/pokemon?limit=2&offset=0");
+    expect(fetchMock).toHaveBeenCalledWith("https://pokeapi.co/api/v2/pokemon?limit=2&offset=0", {
+      signal: expect.any(AbortSignal),
+    });
     expect(list.previous).toBeNull();
     expect(list.results).toEqual(pokemonList.results);
   });
