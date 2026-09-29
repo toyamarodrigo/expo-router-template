@@ -9,7 +9,7 @@ module.exports = defineConfig([
   ...pluginQuery.configs["flat/recommended"],
   prettierRecommended,
   {
-    ignores: ["dist/*", ".expo/*", "ios/*", "android/*", ".agents/*"],
+    ignores: ["dist/*", ".expo/*", "coverage/*", "ios/*", "android/*", ".agents/*"],
   },
   {
     rules: {

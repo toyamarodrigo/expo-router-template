@@ -32,7 +32,7 @@ SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10-
 - [x] Fase 5 — librerías
 - [x] Fase 6 — React Compiler
 - [x] Fase 7 — EAS
-- [ ] Fase 8 — tests (8.1) · [x] CI + Dependabot (8.2, adelantada)
+- [x] Fase 8 — tests + CI + Dependabot
 - [ ] Fase 9 — bugs y cierre
 
 ### Decisiones
@@ -55,9 +55,9 @@ SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10-
 
 ### Nota de ejecución
 
-Por la política de la organización, el asistente **no ejecuta comandos**: edita archivos. Los comandos de este plan son **ejemplos** para la persona que ejecuta la migración. Ninguno necesita privilegios elevados. La excepción es instalar o actualizar Xcode, que necesita admin; gestionarlo con IT.
+Los comandos locales de instalación, validación y Git los ejecuta el coordinador en esta sesión. Opus implementa editando archivos y Fable planifica y revisa. Ninguno de los comandos de este plan necesita privilegios elevados. La excepción es instalar o actualizar Xcode, que necesita admin; gestionarlo con IT.
 
-Flujo por fase: (1) el desarrollador ejecuta las instalaciones → (2) el asistente edita el código → (3) el desarrollador ejecuta los checks y el smoke test → (4) commit.
+Flujo por fase: (1) el coordinador instala dependencias → (2) Opus implementa → (3) el coordinador ejecuta checks y smoke test → (4) Fable revisa → (5) commit.
 
 ---
 
@@ -277,22 +277,30 @@ Commit: `chore(eas): fingerprint runtime policy`.
 ### 8.1 Tests
 ```bash
 # Ejemplo
-npx expo install jest-expo jest @types/jest @testing-library/react-native -- -D
+bun expo install jest-expo jest @types/jest @testing-library/react-native
+bun add -D @jest/globals@~29.7.0
 ```
-- `package.json` → `"jest": { "preset": "jest-expo" }`.
+- `jest.config.js` con preset `jest-expo` (ver notas de ejecución).
 - Tests mínimos:
   - `src/api/api.pokemon.test.ts`: schemas y transformación con fixture (mock de `fetch`).
   - `src/stores/use-auth-store.test.ts`: login válido / inválido / logout (mock de `expo-secure-store`).
-  - `app/__tests__/routing.test.tsx`: `renderRouter` de `expo-router/testing-library`; sin sesión → `/(auth)/login`; con sesión → `/(app)/(tabs)`.
-  - `app/(auth)/login.test.tsx`: errores de Zod con campos vacíos.
+  - `__tests__/routing.test.tsx`: `renderRouter` de `expo-router/testing-library` con el root layout real (`AuthGate`) y stubs de login / home; sin sesión → `/login`; con sesión → `/` (tabs).
+  - `__tests__/login.test.tsx`: errores de Zod con campos vacíos e `Invalid credentials`.
+
+**Notas de ejecución:**
+- **Tests de UI fuera de `app/`:** Expo Router trata cada archivo de `app/` como una ruta. Un `*.test.tsx` o una carpeta `__tests__/` dentro de `app/` entra en el bundle y en las typed routes. Por eso los tests de rutas y pantallas van en `__tests__/` en la raíz. Los tests unitarios de `src/` quedan junto al código.
+- **Config de Jest (`jest.config.js`):** preset `jest-expo`; `setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"]`; `testPathIgnorePatterns` para `node_modules/`, `ios/`, `android/`, `dist/` y `.expo/`.
+- **Mocks globales (`jest.setup.ts`):** `expo-secure-store` (en memoria), `@react-native-community/netinfo` (mock oficial), `@dev-plugins/react-query` (no-op) y `global.css`.
+- **CI:** `bun run test` corre entre `typecheck` y `doctor`.
+
+Commit: `test: jest + api, store, router, login`.
 
 ### 8.2 CI
 - `.github/workflows/ci.yml`: `pull_request` y `push` a `main`; `bun install --frozen-lockfile`, lint, typecheck, test, `expo-doctor`. Node desde `.nvmrc`.
-- Actions **fijadas por SHA** con comentario de versión (`# v4`).
+- Actions **fijadas por SHA** con comentario de versión (`# v7.0.1`, `# v7.0.0`, `# v2.2.0`).
 - `.github/dependabot.yml` con ecosistema `github-actions`.
 - Sin secrets.
-
-Commit: `ci: lint, typecheck, tests, doctor`.
+- Commit existente: `240a052 ci: lint, typecheck, doctor + dependabot`.
 
 ---
 
