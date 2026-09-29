@@ -18,6 +18,13 @@ afterEach(() => {
   mockSecureStore.clear();
 });
 
+jest.mock("expo-splash-screen", () => ({
+  preventAutoHideAsync: jest.fn(async () => true),
+  hide: jest.fn(),
+  hideAsync: jest.fn(async () => {}),
+  setOptions: jest.fn(),
+}));
+
 jest.mock("@react-native-community/netinfo", () =>
   jest.requireActual("@react-native-community/netinfo/jest/netinfo-mock.js"),
 );

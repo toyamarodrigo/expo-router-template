@@ -1,15 +1,78 @@
 ---
 name: expo-tailwind-setup
-description: Set up Tailwind CSS v4 in Expo with react-native-css and NativeWind v5 for universal styling
-version: 1.0.0
+description: NativeWind and Tailwind CSS in Expo. Use to check or change the current NativeWind 4 + Tailwind CSS 3 setup (Babel, Metro, tailwind.config.js, global.css), or to plan the NativeWind 5 + Tailwind CSS 4 (react-native-css) migration.
+version: 1.1.0
 license: MIT
 ---
 
-# Tailwind CSS Setup for Expo with react-native-css
+# Tailwind CSS Setup for Expo (NativeWind)
 
-This guide covers setting up Tailwind CSS v4 in Expo using react-native-css and NativeWind v5 for universal styling across iOS, Android, and Web.
+> **Current template state:** this template uses **NativeWind 4.2.7 + Tailwind CSS 3.4**. See "Current NativeWind 4 Setup" below. NativeWind 5 + Tailwind CSS 4 is **migration backlog**. All sections after "NativeWind v5 Migration (Backlog)" describe the v5 path. Do not apply them unless the task is the v5 migration.
 
-## Overview
+## Current NativeWind 4 Setup
+
+Versions: `nativewind@4.2.7`, `tailwindcss@^3.4`.
+
+`babel.config.js`:
+
+```js
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      [
+        "babel-preset-expo",
+        { jsxImportSource: "nativewind", unstable_transformImportMeta: true },
+      ],
+      "nativewind/babel",
+    ],
+  };
+};
+```
+
+`metro.config.js`:
+
+```js
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require("nativewind/metro");
+
+module.exports = withNativeWind(getDefaultConfig(__dirname), {
+  input: "./global.css",
+});
+```
+
+`tailwind.config.js` (minimal example; this repository's config also extends semantic colors, border radii, and the Space Mono font):
+
+```js
+module.exports = {
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: { extend: {} },
+  plugins: [],
+};
+```
+
+`global.css` (Tailwind v3 directives), imported once in `app/_layout.tsx`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+`nativewind-env.d.ts` (at the project root) adds `className` typing to React Native components:
+
+```ts
+/// <reference types="nativewind/types" />
+```
+
+Install packages with the project package manager. This repository uses Bun, so use `bunx expo install <package>` (equivalent to `npx expo install <package>`) and `bunx expo install --dev <package>` for dev dependencies.
+
+## NativeWind v5 Migration (Backlog)
+
+All sections below describe the NativeWind v5 + Tailwind CSS v4 path (react-native-css). Their headings end with "(v5)". They do not apply to the current v4 setup.
+
+## Overview (v5)
 
 This setup uses:
 
@@ -18,32 +81,27 @@ This setup uses:
 - **NativeWind v5** - Metro transformer for Tailwind in React Native
 - **@tailwindcss/postcss** - PostCSS plugin for Tailwind v4
 
-## Installation
+## Installation (v5)
+
+NativeWind 5 is a preview release. Versions change often, so this skill does not pin them. Read the current [official NativeWind v5 migration guide](https://www.nativewind.dev/v5/guides/migrate-from-v4) before you start.
 
 ```bash
-# Install dependencies
-npx expo install tailwindcss@^4 nativewind@5.0.0-preview.2 react-native-css@0.0.0-nightly.5ce6396 @tailwindcss/postcss tailwind-merge clsx
+bunx expo install nativewind@preview react-native-css@latest react-native-reanimated react-native-safe-area-context
+bunx expo install --dev tailwindcss @tailwindcss/postcss postcss
 ```
 
-Add resolutions for lightningcss compatibility:
+**Dependency placement:** this repository currently declares `tailwindcss` and `postcss` in `dependencies`. The v5 migration should move them to `devDependencies`, as the `bunx expo install --dev` command above shows. That command does not necessarily move existing entries, so after the install, check `package.json` and make sure both packages are in `devDependencies` and not in `dependencies`.
 
-```json
-// package.json
-{
-  "resolutions": {
-    "lightningcss": "1.30.1"
-  }
-}
-```
+**lightningcss override:** the official docs state that a compatible `lightningcss` version override is necessary for deserialization, but they do not give a current exact version. At migration time, get the compatible value from the current migration guide and add it as a `resolutions`/`overrides` entry in `package.json`. Do not use an old hardcoded value.
 
 - autoprefixer is not needed in Expo because of lightningcss
-- postcss is included in expo by default
+- After you change the config, restart Metro with a clear cache: `bunx expo start --clear`
 
-## Configuration Files
+## Configuration Files (v5)
 
-### Metro Config
+### Metro Config (v5)
 
-Create or update `metro.config.js`:
+Update `metro.config.js`. `withNativewind` takes only the Metro config (no second options argument, and no v4 `input` option):
 
 ```js
 // metro.config.js
@@ -53,15 +111,10 @@ const { withNativewind } = require("nativewind/metro");
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
-module.exports = withNativewind(config, {
-  // inline variables break PlatformColor in CSS variables
-  inlineVariables: false,
-  // We add className support manually
-  globalClassNamePolyfill: false,
-});
+module.exports = withNativewind(config);
 ```
 
-### PostCSS Config
+### PostCSS Config (v5)
 
 Create `postcss.config.mjs`:
 
@@ -74,14 +127,15 @@ export default {
 };
 ```
 
-### Global CSS
+### Global CSS (v5)
 
-Create `src/global.css`:
+Update the root `global.css` (keep utilities unlayered so React Native Web defaults do not override them). It must include `@import "nativewind/theme";`. Import it once in `app/_layout.tsx`:
 
 ```css
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css";
+@import "nativewind/theme";
 
 /* Platform-specific font families */
 @media android {
@@ -103,9 +157,9 @@ Create `src/global.css`:
 }
 ```
 
-## IMPORTANT: No Babel Config Needed
+## IMPORTANT: No NativeWind Babel Config (v5)
 
-With Tailwind v4 and NativeWind v5, you do NOT need a babel.config.js for Tailwind. Remove any NativeWind babel presets if present:
+With Tailwind v4 and NativeWind v5, you do NOT need Babel config for Tailwind. Remove both `nativewind/babel` and the `jsxImportSource: "nativewind"` option from the `babel-preset-expo` preset. Keep any other `babel-preset-expo` options the app needs (for example, this repository's `unstable_transformImportMeta: true`):
 
 ```js
 // DELETE babel.config.js if it only contains NativeWind config
@@ -121,11 +175,11 @@ With Tailwind v4 and NativeWind v5, you do NOT need a babel.config.js for Tailwi
 // };
 ```
 
-## CSS Component Wrappers
+## CSS Component Wrappers (v5)
 
 Since react-native-css requires explicit CSS element wrapping, create reusable components:
 
-### Main Components (`src/tw/index.tsx`)
+### Main Components (`src/tw/index.tsx`) (v5)
 
 ```tsx
 import {
@@ -249,7 +303,7 @@ export const TouchableHighlight = (
 TouchableHighlight.displayName = "CSS(TouchableHighlight)";
 ```
 
-### Image Component (`src/tw/image.tsx`)
+### Image Component (`src/tw/image.tsx`) (v5)
 
 ```tsx
 import { useCssElement } from "react-native-css";
@@ -290,7 +344,7 @@ export const Image = (
 Image.displayName = "CSS(Image)";
 ```
 
-### Animated Components (`src/tw/animated.tsx`)
+### Animated Components (`src/tw/animated.tsx`) (v5)
 
 ```tsx
 import * as TW from "./index";
@@ -302,7 +356,7 @@ export const Animated = {
 };
 ```
 
-## Usage
+## Usage (v5)
 
 Import CSS-wrapped components from your tw directory:
 
@@ -324,7 +378,7 @@ export default function MyScreen() {
 }
 ```
 
-## Custom Theme Variables
+## Custom Theme Variables (v5)
 
 Add custom theme variables in your global.css using `@theme`:
 
@@ -347,7 +401,7 @@ Add custom theme variables in your global.css using `@theme`:
 }
 ```
 
-## Platform-Specific Styles
+## Platform-Specific Styles (v5)
 
 Use platform media queries for platform-specific styling:
 
@@ -367,7 +421,7 @@ Use platform media queries for platform-specific styling:
 }
 ```
 
-## Apple System Colors with CSS Variables
+## Apple System Colors with CSS Variables (v5)
 
 Create a CSS file for Apple semantic colors:
 
@@ -435,7 +489,7 @@ Then use in components:
 <View className="bg-sf-bg">...</View>
 ```
 
-## Using CSS Variables in JavaScript
+## Using CSS Variables in JavaScript (v5)
 
 Use the `useCSSVariable` hook:
 
@@ -449,29 +503,30 @@ function MyComponent() {
 }
 ```
 
-## Key Differences from NativeWind v4 / Tailwind v3
+## Key Differences from NativeWind v4 / Tailwind v3 (v5)
 
-1. **No babel.config.js** - Configuration is now CSS-first
+1. **No NativeWind Babel config** - Remove `nativewind/babel` and `jsxImportSource`; configuration is now CSS-first
 2. **PostCSS plugin** - Uses `@tailwindcss/postcss` instead of `tailwindcss`
-3. **CSS imports** - Use `@import "tailwindcss/..."` instead of `@tailwind` directives
+3. **CSS imports** - Use `@import "tailwindcss/..."` and `@import "nativewind/theme"` instead of `@tailwind` directives
 4. **Theme config** - Use `@theme` in CSS instead of `tailwind.config.js`
 5. **Component wrappers** - Must wrap components with `useCssElement` for className support
-6. **Metro config** - Use `withNativewind` with different options (`inlineVariables: false`)
+6. **Metro config** - Use `withNativewind(config)` with no options (no `input`)
+7. **lightningcss override** - Needed; get the compatible version from the current migration guide
 
-## Troubleshooting
+## Troubleshooting (v5)
 
-### Styles not applying
+### Styles not applying (v5)
 
 1. Ensure you have the CSS file imported in your app entry
 2. Check that components are wrapped with `useCssElement`
 3. Verify Metro config has `withNativewind` applied
 
-### Platform colors not working
+### Platform colors not working (v5)
 
 1. Use `platformColor()` in `@media ios` blocks
 2. Fall back to `light-dark()` for web/Android
 
-### TypeScript errors
+### TypeScript errors (v5)
 
 Add className to component props:
 

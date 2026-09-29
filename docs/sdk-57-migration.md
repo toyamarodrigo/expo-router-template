@@ -33,7 +33,7 @@ SDK 58 está en beta (15/09/2026, RN 0.88 RC). Queda para la [Fase 10](#fase-10-
 - [x] Fase 6 — React Compiler
 - [x] Fase 7 — EAS
 - [x] Fase 8 — tests + CI + Dependabot
-- [ ] Fase 9 — bugs y cierre
+- [x] Fase 9 — bugs y cierre (smoke iOS pendiente: requiere Xcode 26.4+)
 
 ### Decisiones
 
@@ -306,12 +306,28 @@ Commit: `test: jest + api, store, router, login`.
 
 ## Fase 9 — Bugs y cierre
 
-- **Hidratación del auth store:** `AuthGate` redirige antes de que `persist` lea SecureStore (flash de login). Esperar `useAuthStore.persist.hasHydrated()` y mantener el splash con `SplashScreen.preventAutoHideAsync()`.
+- **Hidratación del auth store:** `AuthGate` redirigía antes de que `persist` leyera SecureStore (flash de login). Ver las notas de ejecución.
 - ~~**`query-factory.ts`:** simplificar la key a `{ limit, offset }`~~ (hecho en Fase 5, junto con `fetch` + Zod).
 - **README (inglés):** requisitos (Node 24, Xcode 26.4, iOS 16.4), versiones, scripts, regla de `EXPO_PUBLIC_*`.
 - **`TODO.md`:** marcar React Query detail, ESLint y Tsconfig como hechos.
 - **Skills:** actualizar `.agents/skills` (en especial `upgrading-expo` y `expo-tailwind-setup`).
-- Validar el static export: `npx expo export -p web`.
+- Validar el static export: `bun expo export -p web --clear`.
+
+**Notas de ejecución:**
+- **Señal de hidratación separada:** el store expone `useAuthHasHydrated`, una señal aparte del estado de sesión. No se usa solo `persist.hasHydrated()` / `onFinishHydration`: si la lectura de storage falla (rechazo), Zustand `persist` no informa que la hidratación terminó. La señal aparte se marca como terminada también en ese caso.
+- **`AuthGate` y splash (solo nativo):** mientras `useAuthHasHydrated` es `false`, `AuthGate` no redirige y el splash nativo queda visible (`SplashScreen.preventAutoHideAsync()`) hasta que la hidratación termina y el grupo de rutas de destino está activo. `AuthGate` redirige según la sesión (a `/login` o a la app) y oculta el splash solo cuando no hay una redirección pendiente y el grupo de destino está activo.
+- **Web:** web no tiene splash nativo. Durante el prerender (static render), `localStorage` no está disponible y el snapshot inicial del servidor queda en estado pendiente. Por eso `AuthGate` devuelve `null` y el shell raíz generado queda vacío. Después, la hidratación en el cliente usa el `localStorage` del navegador y el routing usa esa sesión.
+- **Errores de storage:** si la lectura de SecureStore falla en nativo, el rechazo se maneja: la hidratación termina en estado sin sesión y la app va a `/login`. El error no puede dejar el splash nativo bloqueado.
+- **Mock de `expo-splash-screen`:** `jest.setup.ts` agrega un mock de `expo-splash-screen` para los tests de routing de `AuthGate`.
+
+**Evidencia:**
+- `bun run doctor` (el script ejecuta `bunx expo-doctor@latest`): 21/21 checks OK.
+- `bun run typecheck`, `bun run lint` y `bun run test` (4 suites / 18 tests) en verde.
+- Android (Expo Go): login demo → Pokémon; logout y login desde el drawer; force-stop y reabrir → splash → Pokémon, sin flash de login.
+- Web export: `bun expo export -p web --clear` termina con código 0; 19 rutas estáticas, shells de root / login / catch-all y assets presentes en `dist/`. `dist/` está en `.gitignore`.
+- Web servido local: `python3 -m http.server 4173 --directory dist` y después un servidor Python temporal (puerto 4174) con rewrite de `/login` → `login.html`. El hosting real necesita el mismo rewrite de clean paths. Smoke de auth con Brave headless por CDP (script temporal): sin sesión, `/` → login; con sesión, `/` → Pokémon y `/login` → app; cero errores y excepciones en consola.
+- Web dev server (`expo start --web`): **no ejecutado**.
+- iOS: **pendiente**. Xcode local es 26.3 y el plan requiere 26.4+; no hay smoke iOS.
 
 Commit: `chore: post-migration fixes and docs`.
 
@@ -333,16 +349,17 @@ Commit: `chore: post-migration fixes and docs`.
 
 ## Checklist de verificación (en cada fase)
 
-- [ ] `npx expo-doctor@latest` sin errores
-- [ ] `bun run typecheck` sin errores
-- [ ] `bun run lint` sin errores
-- [ ] `bun run test` verde (desde Fase 8)
+- [x] `bun run doctor` sin errores (cierre de Fase 9: 21/21)
+- [x] `bun run typecheck` sin errores
+- [x] `bun run lint` sin errores
+- [x] `bun run test` verde (desde Fase 8; cierre: 4 suites / 18 tests)
 - [ ] iOS (simulador, dev client): login → lista → detalle → counter → details → drawer → logout
-- [ ] Android: mismo flujo + edge-to-edge
-- [ ] Web: `expo start --web` y `expo export -p web`
+- [ ] Android: mismo flujo + edge-to-edge (flujo completo no ejecutado; hay un smoke parcial con Expo Go en la [evidencia de la Fase 9](#fase-9--bugs-y-cierre))
+- [x] Web: static export (`bun expo export -p web --clear`) + smoke de auth servido local (cierre de Fase 9)
+- [ ] Web: smoke con dev server (`expo start --web`) — no ejecutado
 - [ ] Pull-to-refresh y refetch al volver a foco en Home
 - [ ] Modo avión → online → React Query reintenta
-- [ ] Reiniciar la app con sesión → sin flash de login (después de Fase 9)
+- [x] Reiniciar la app con sesión → sin flash de login (después de Fase 9; verificado en Android con Expo Go, iOS pendiente)
 
 ## Riesgos
 
